@@ -1,4 +1,7 @@
 ---
-title: foo
+title: Braised Pork Tostadas with Mango Salad
+category: food
+tags:
+ - Recipe
 ---
-hi
+Some stuff here, embedded from recipefu

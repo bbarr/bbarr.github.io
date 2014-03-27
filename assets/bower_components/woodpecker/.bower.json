@@ -1,0 +1,31 @@
+{
+  "name": "woodpecker",
+  "authors": [
+    "bbarr <brendan@volary.org>"
+  ],
+  "description": "Collection of tools for volary javascript apps",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "rivets": "~0.6.6",
+    "jquery": "~2.1.0"
+  },
+  "_release": "eb137cd96d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "eb137cd96daae760a6017106de7196a35c4e4525"
+  },
+  "_source": "/Users/bbarr/web/volary/woodpecker",
+  "_target": "*",
+  "_originalSource": "../../volary/woodpecker/",
+  "_direct": true
+}

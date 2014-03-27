@@ -1,8 +1,81 @@
-Hello World
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>REPL Without A Cause</title>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="/assets/base.css" rel="stylesheet"></link>
+
+  </head>
+  <body rv-class-sidebar-in="vm:sidebar-in">
+
+    <sidebar>
+      <h1><a href="#">(- REPL cause)</a></h1>
+      <button type="button" class="navbar-toggle" rv-on-click="vm.toggleSidebar | preventDefault">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </sidebar>
+
+    <section class="container-fluid" id="posts">
+      <ul>
+        
+          <li>
+            <div class="date">
+              12/31/12 
+            </div>
+            <h3>
+              <a href="/code/2012/12/31/blah.html">
+                
+                <i class="img-circle fa fa-code"></i>
+                
+                Rivets.JS Widgets
+              </a>
+            </h3>
+            <div><p>Some stuff here, about the widget system</p></div>
+            <div class="meta">
+              <span class="label label-default">Javascript</span> <span class="label label-default">UI</span>
+            </div>
+          </li>
+        
+          <li>
+            <div class="date">
+              12/31/11 
+            </div>
+            <h3>
+              <a href="/food/2011/12/31/foo.html">
+                
+                <i class="img-circle fa fa-cutlery"></i>
+                
+                Braised Pork Tostadas with Mango Salad
+              </a>
+            </h3>
+            <div><p>Some stuff here, embedded from recipefu</p></div>
+            <div class="meta">
+              <span class="label label-default">Recipe</span>
+            </div>
+          </li>
+        
+      </ul>
+    </section>
+
+    <script src="assets/bower_components/jquery/dist/jquery.js"></script>
+    <script>
+
+      var $body = $(document.body)
+
+      $('.navbar-toggle').click(function(e) {
+        e.preventDefault()
+        $body.toggleClass('sidebar-in')
+      })
+
+    </script>
+
+  </body>
+</html>

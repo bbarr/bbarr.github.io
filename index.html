@@ -1,8 +1,69 @@
-Hello World
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+---
+title: Repl Without A Cause
+id: home
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>REPL Without A Cause</title>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="/assets/base.css" rel="stylesheet"></link>
+
+  </head>
+  <body rv-class-sidebar-in="vm:sidebar-in">
+
+    <sidebar>
+      <h1><a href="#">(- REPL cause)</a></h1>
+      <button type="button" class="navbar-toggle" rv-on-click="vm.toggleSidebar | preventDefault">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </sidebar>
+
+    <section class="container-fluid" id="posts">
+      <ul>
+        {% for post in site.posts %}
+          <li>
+            <div class="date">
+              {{ post.date | date: "%x" }} 
+            </div>
+            <h3>
+              <a href="{{ post.url }}">
+                {% if post.category == 'food' %}
+                <i class="img-circle fa fa-cutlery"></i>
+                {% else %}
+                <i class="img-circle fa fa-code"></i>
+                {% endif %}
+                {{ post.title }}
+              </a>
+            </h3>
+            <div>{{ post.excerpt }}</div>
+            <div class="meta">
+              {{ post.tags | tag_array }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <script src="assets/bower_components/jquery/dist/jquery.js"></script>
+    <script>
+
+      var $body = $(document.body)
+
+      $('.navbar-toggle').click(function(e) {
+        e.preventDefault()
+        $body.toggleClass('sidebar-in')
+      })
+
+    </script>
+
+  </body>
+</html>
