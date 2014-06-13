@@ -1,6 +1,6 @@
 ---
 title: Rivets.JS Widgets
-category: Code
+category: coding
 tags:
  - Javascript
  - UI

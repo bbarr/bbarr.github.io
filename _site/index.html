@@ -11,68 +11,129 @@
     <link href="/assets/base.css" rel="stylesheet"></link>
 
   </head>
-  <body rv-class-sidebar-in="vm:sidebar-in">
+  <body>
 
-    <sidebar>
-      <h1><a href="#">(- REPL cause)</a></h1>
+    <div rv-class-sidebar-in="vm:sidebar_in" id="wrapper">
+
       <button type="button" class="navbar-toggle" rv-on-click="vm.toggleSidebar | preventDefault">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-    </sidebar>
 
-    <section class="container-fluid" id="posts">
-      <ul>
-        
-          <li>
-            <div class="date">
-              12/31/12 
-            </div>
+      <sidebar>
+        <h1><small>A blog about</small> coding &amp; cooking.</h1>
+        <div id="filters">
+          <h3><small>Categories</small></h3>
+          <div id="categories">
+            
+              <div class="btn category active">
+                <i class="fa"></i>
+                cooking
+              </div>
+            
+              <div class="btn category active">
+                <i class="fa"></i>
+                coding
+              </div>
+            
+          </div>
+          <div id="tags">
+            <h3><small>Tags</small></h3>
+            
+              <div class="tag label label-default active">
+                <i class="fa fa-tag"></i>
+                Recipe
+              </div>
+            
+              <div class="tag label label-default active">
+                <i class="fa fa-tag"></i>
+                Javascript
+              </div>
+            
+              <div class="tag label label-default active">
+                <i class="fa fa-tag"></i>
+                UI
+              </div>
+            
+          </div>
+        </div>
+        <div id="bio">
+          <h2>Brendan Barr</h2>
+          I am a web developer currently pursuing his dreams in sunny Santa Monica, CA.
+        </div>
+      </sidebar>
+
+      <section class="container-fluid" id="posts">
+        <ul>
+          <li rv-each-post="vm:posts">
+            <div class="date"> { post.date | postDate } </div>
             <h3>
-              <a href="/code/2012/12/31/blah.html">
-                
-                <i class="img-circle fa fa-code"></i>
-                
-                Rivets.JS Widgets
+              <a rv-href="post.href">
+                <i class="img-circle fa" rv-class-fa-cutlery="post.category | eql cooking" rv-class-fa-code="post.category | eql coding"></i>
+                { post.title } 
               </a>
             </h3>
-            <div><p>Some stuff here, about the widget system</p></div>
-            <div class="meta">
-              <span class="label label-default">Javascript</span> <span class="label label-default">UI</span>
-            </div>
+            <div class="meta"> { post.tags } </div>
           </li>
-        
-          <li>
-            <div class="date">
-              12/31/11 
-            </div>
-            <h3>
-              <a href="/food/2011/12/31/foo.html">
-                
-                <i class="img-circle fa fa-cutlery"></i>
-                
-                Braised Pork Tostadas with Mango Salad
-              </a>
-            </h3>
-            <div><p>Some stuff here, embedded from recipefu</p></div>
-            <div class="meta">
-              <span class="label label-default">Recipe</span>
-            </div>
-          </li>
-        
-      </ul>
-    </section>
+        </ul>
+      </section>
 
-    <script src="assets/bower_components/jquery/dist/jquery.js"></script>
+    </div>
+
+    <script>
+      var posts = [
+        
+          {
+            "title"    : "Rivets.JS Widgets",
+            "category" : "coding",
+            "tags"     : ["Javascript","UI", null],
+            "href"     : "/coding/2012/12/31/blah.html",
+            "date"     : {
+              "day"   : "31",
+              "month" : "December",
+              "year"  : "2012"
+            }
+          },
+        
+          {
+            "title"    : "Braised Pork Tostadas with Mango Salad",
+            "category" : "cooking",
+            "tags"     : ["Recipe", null],
+            "href"     : "/cooking/2011/12/31/foo.html",
+            "date"     : {
+              "day"   : "31",
+              "month" : "December",
+              "year"  : "2011"
+            }
+          },
+        
+        null
+      ]
+    </script>
+
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/underscore/underscore.js"></script>
+    <script src="/bower_components/backbone/backbone.js"></script>
+    <script src="/bower_components/rivets/dist/rivets.js"></script>
+    <script src="/bower_components/woodpecker/dist/woodpecker.js"></script>
     <script>
 
-      var $body = $(document.body)
+      rivets.formatters.postDate = function(date) {
+        return date.month.substr(0, 3) + ' ' + date.day + ', ' + date.year
+      }
 
-      $('.navbar-toggle').click(function(e) {
-        e.preventDefault()
-        $body.toggleClass('sidebar-in')
+      var VM = Backbone.Model.extend({
+        toggleSidebar: function() {
+          this.set('sidebar_in', !this.get('sidebar_in'))
+        }
+      })
+
+      rivets.bind(document.getElementById('wrapper'), {
+        vm: new VM({
+          posts: _.compact(posts)
+        })
       })
 
     </script>

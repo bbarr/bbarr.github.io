@@ -1,6 +1,6 @@
 ---
 title: Braised Pork Tostadas with Mango Salad
-category: food
+category: cooking
 tags:
  - Recipe
 ---

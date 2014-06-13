@@ -5776,6 +5776,8 @@ body {
   font-family: 'Merriweather', serif;
   background: #eeeee6;
   color: #333333;
+}
+#wrapper {
   position: relative;
 }
 ul {
@@ -5787,18 +5789,15 @@ li {
 a {
   color: #299ecb;
 }
-.label {
-  background: #333333;
-  padding: 4px 8px;
-}
 .date {
   text-align: center;
-  border-bottom: 1px solid #333333;
+  border-bottom: 1px dotted #333333;
+  padding-bottom: 5px;
 }
 .navbar-toggle {
   border: 1px solid #333333;
-  position: absolute;
-  right: -47px;
+  position: fixed;
+  left: -4px;
   top: 40%;
   display: block;
   background: #333333;
@@ -5813,19 +5812,21 @@ a {
   margin: 0 0 0 4px;
 }
 h1 {
-  font-size: 23px;
+  font-size: 25px;
   line-height: 46px;
   margin: 0;
-}
-h1 a {
+  text-align: center;
   color: #ffffff;
 }
-h1 a:hover {
-  color: #299ecb;
-  text-decoration: none;
+h1 small {
+  display: block;
 }
 #posts li {
   padding: 20px 30px 20px 50px;
+}
+#posts li .label {
+  background: #333333;
+  padding: 4px 8px;
 }
 #posts li h3 {
   line-height: 36px;
@@ -5853,16 +5854,72 @@ sidebar {
   width: 250px;
   top: 0;
   bottom: 0;
-  padding: 20px;
+  padding: 20px 14px;
   background: #333333;
   box-sizing: border-box;
+  min-height: 500px;
 }
-body.sidebar-in {
+sidebar #bio {
+  left: 14px;
+  right: 14px;
+  bottom: 20px;
+  position: absolute;
+  color: #ffffff;
+  padding: 10px;
+  border: 1px dotted #eeeee6;
+}
+sidebar #bio h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+sidebar #filters {
+  margin: 80px 0 0;
+  color: #fff;
+}
+sidebar #filters h3 {
+  font-size: 25px;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted #999;
+}
+sidebar #filters #categories {
+  margin-bottom: 20px;
+}
+sidebar #filters .category {
+  text-align: center;
+  width: 100%;
+  background: #333333;
+  border: 1px solid #000000;
+  margin-bottom: 10px;
+}
+sidebar #filters .category.active:hover {
+  color: #ffffff;
+}
+sidebar #filters .category:hover,
+sidebar #filters .category.active {
+  background: #299ecb;
+  border: 1px solid #ffffff;
+}
+sidebar #filters .tag {
+  text-align: center;
+  margin-right: 5px;
+}
+sidebar #filters .tag.active,
+sidebar #filters .tag:hover {
+  background: #299ecb;
+  color: #ffffff;
+  cursor: pointer;
+}
+#wrapper.sidebar-in {
   left: 250px;
   right: -250px;
 }
-body.sidebar-in sidebar {
+#wrapper.sidebar-in .navbar-toggle {
+  left: 246px;
+}
+#wrapper.sidebar-in sidebar {
   left: 0;
+  overflow-y: auto;
 }
 @media (min-width: 768px) {
   .navbar-toggle {
@@ -5874,7 +5931,7 @@ body.sidebar-in sidebar {
   sidebar {
     left: 0;
   }
-  body {
+  #wrapper {
     padding-left: 250px;
     right: 0;
     position: static;

@@ -13,6 +13,9 @@ body {
   font-family: 'Merriweather', serif;
   background: @light-gray;
   color: @dark-gray;
+}
+
+#wrapper {
   position: relative;
 }
 
@@ -31,20 +34,16 @@ a {
 .navbar {
 }
 
-.label {
-  background: @dark-gray;
-  padding: 4px 8px;
-}
-
 .date {
   text-align: center;
-  border-bottom: 1px solid @dark-gray;
+  border-bottom: 1px dotted @dark-gray;
+  padding-bottom: 5px;
 }
 
 .navbar-toggle {
   border: 1px solid @dark-gray;
-  position: absolute;
-  right: -47px;
+  position: fixed;
+  left: -4px;
   top: 40%;
   display: block;
   background: @dark-gray;
@@ -60,20 +59,22 @@ a {
 }
 
 h1 {
-  font-size: 23px;
+  font-size: 25px;
   line-height: 46px;
   margin: 0;
-  a {
-    color: @white;
-    &:hover {
-      color: @blue;
-      text-decoration: none;
-    }
+  text-align: center;
+  color:@white;
+  small {
+    display: block;
   }
 }
 
 #posts {
   li {
+    .label {
+      background: @dark-gray;
+      padding: 4px 8px;
+    }
     h3 {
       line-height: 36px;
       margin-top: 15px;
@@ -104,16 +105,72 @@ sidebar {
   width: @sidebar-width;
   top: 0;
   bottom: 0;
-  padding: 20px;
+  padding: 20px 14px;
   background: @dark-gray;
   box-sizing: border-box;
+  min-height: 500px;
+  #bio {
+    left: 14px;
+    right: 14px;
+    bottom: 20px;
+    position: absolute;
+    color: @white;
+    padding: 10px;
+    border: 1px dotted @light-gray;
+    h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+  }
+
+  #filters {
+    margin: 80px 0 0;
+    h3 {
+      font-size: 25px;
+      text-align: center;
+      padding-bottom: 5px;
+      border-bottom: 1px dotted #999;
+    }
+    color: #fff;
+    #categories {
+      margin-bottom: 20px;
+    }
+    .category {
+      text-align: center;
+      width: 100%;
+      background: @dark-gray;
+      border: 1px solid @black;
+      margin-bottom: 10px;
+      &.active:hover {
+        color: @white;
+      }
+      &:hover, &.active {
+        background: @blue;
+        border: 1px solid @white;
+      }
+    }
+    .tag {
+      text-align: center;
+      margin-right: 5px;
+      &.active, &:hover {
+        background: @blue;
+        color: @white;
+        cursor: pointer;
+      }
+    }
+  }
+
 }
 
-body.sidebar-in {
+#wrapper.sidebar-in {
   left: @sidebar-width;
   right: -@sidebar-width;
+  .navbar-toggle {
+    left: @sidebar-width - 4;
+  }
   sidebar {
     left: 0;
+    overflow-y: auto;
   }
 }
 
@@ -127,7 +184,7 @@ body.sidebar-in {
   sidebar {
     left: 0;
   }
-  body {
+  #wrapper {
     padding-left: @sidebar-width;
     right: 0;
     position: static;
