@@ -1,9 +1,0 @@
----
-title: Rivets.JS Widgets
-category: coding
-tags:
- - Javascript
- - UI
----
-Some stuff here, about the widget system {{ post.updated }}
-
