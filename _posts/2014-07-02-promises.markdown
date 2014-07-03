@@ -12,32 +12,38 @@ also scales nicely along with your imagination in their use.
 I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:
 
 1. Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That's, uh, sorta better...
-```js
-   $.ajax({
-      url: '/foo',
-    }).success(function() {
-      // do something
-    })
+
+~~~~ javascript
+$.ajax({
+  url: '/foo',
+}).success(function() {
+  // do something
+})
+~~~~
 
 2. Whoa. I love all this chaaaaining. My code doesn't turn into a sideways pyramid now!
-```js
-  fetch(url).then(function(html) {
-    return stripStuff(html)
-  }).then(function(html) {
-    return splitStuff(html)
-  }).then(function(html) {
-    return analyze1(html)
-  })
+
+~~~ javascript
+fetch(url).then(function(html) {
+  return stripStuff(html)
+}).then(function(html) {
+  return splitStuff(html)
+}).then(function(html) {
+  return analyze1(html)
+})
+~~~
 
 3. Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.
-```js
-  // using RSVP.js
-  var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
-  var fetching = fetch(url)
-  var stripping = fetching.then(stripStuff)
-  var splitting = stripping.then(splitStuff)
-  var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
-  // do other things, some of which will will want to use some of these promised chunks of data
+
+~~~ javascript
+// using RSVP.js
+var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
+var fetching = fetch(url)
+var stripping = fetching.then(stripStuff)
+var splitting = stripping.then(splitStuff)
+var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
+// do other things, some of which will will want to use some of these promised chunks of data
+~~~
 
 Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. 
 

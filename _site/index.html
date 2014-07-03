@@ -58,38 +58,50 @@ also scales nicely along with your imagination in their use.</p>
 <p>I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:</p>
 
 <ol>
-  <li>
-    <p>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better…
-```js
-$.ajax({
-   url: ‘/foo’,
- }).success(function() {
-   // do something
- })</p>
-  </li>
-  <li>
-    <p>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!
-```js
-  fetch(url).then(function(html) {
- return stripStuff(html)
-  }).then(function(html) {
- return splitStuff(html)
-  }).then(function(html) {
- return analyze1(html)
-  })</p>
-  </li>
-  <li>
-    <p>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.
-```js
-  // using RSVP.js
-  var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
-  var fetching = fetch(url)
-  var stripping = fetching.then(stripStuff)
-  var splitting = stripping.then(splitStuff)
-  var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
-  // do other things, some of which will will want to use some of these promised chunks of data</p>
-  </li>
+  <li>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better…</li>
 </ol>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="predefined">$</span>.ajax({
+  <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/foo</span><span class="delimiter">'</span></span>,
+}).success(<span class="keyword">function</span>() {
+  <span class="comment">// do something</span>
+})
+</pre></div>
+</div>
+</div>
+
+<ol>
+  <li>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!</li>
+</ol>
+
+<div><div class="CodeRay">
+  <div class="code"><pre>fetch(url).then(<span class="keyword">function</span>(html) {
+  <span class="keyword">return</span> stripStuff(html)
+}).then(<span class="keyword">function</span>(html) {
+  <span class="keyword">return</span> splitStuff(html)
+}).then(<span class="keyword">function</span>(html) {
+  <span class="keyword">return</span> analyze1(html)
+})
+</pre></div>
+</div>
+</div>
+
+<ol>
+  <li>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.</li>
+</ol>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="comment">// using RSVP.js</span>
+<span class="keyword">var</span> <span class="function">mapWith</span> = <span class="keyword">function</span>(cb) { <span class="keyword">return</span> <span class="keyword">function</span>(arr) { <span class="keyword">return</span> arr.map(cb) } }
+<span class="keyword">var</span> fetching = fetch(url)
+<span class="keyword">var</span> stripping = fetching.then(stripStuff)
+<span class="keyword">var</span> splitting = stripping.then(splitStuff)
+<span class="keyword">var</span> analyzing = rsvp.all(splitting.then(mapWith(analyze)))
+<span class="comment">// do other things, some of which will will want to use some of these promised chunks of data</span>
+</pre></div>
+</div>
+</div>
 
 <p>Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. </p>
 
@@ -100,11 +112,9 @@ in the details. This makes for vastly more readable, not to mention reasonable, 
       </div>
     </section>
 
-    <script src="highlight.pack.js"></script>
     <script>
 
       (function() {
-        hljs.initHighlightingOnLoad();
         var toggle = document.getElementById('toggle')
         var body = document.body
         toggle.addEventListener('click', function(e) {
