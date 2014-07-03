@@ -1,43 +1,44 @@
-<p>It has only been in the last few months that I have realized how woefully unimaginitive I have been in my use of promises. They are one of those rare abstractions that is simple enough to understand the first time you scan through the spec or a decent implementation. Their power also scales nicely along with your imagination in their use.</p>
+<p>It has only been in the last few months that I have realized how woefully unimaginitive I have been in my use of promises.
+They are one of those rare abstractions that is simple enough to understand the first time you scan through the spec or a decent implementation. Their power 
+also scales nicely along with your imagination in their use.</p>
 
 <p>I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:</p>
 
 <ol>
-<li>
-<p>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better</p>
-
-<pre class="js"><code class="js">$.ajax({
-   url: '/foo',
+  <li>
+    <p>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better…
+```js
+$.ajax({
+   url: ‘/foo’,
  }).success(function() {
    // do something
- })</code></pre>
-</li>
-
-<li>
-<p>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!</p>
-
-<pre class="js"><code class="js">fetch(url).then(function(html) {
+ })</p>
+  </li>
+  <li>
+    <p>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!
+```js
+  fetch(url).then(function(html) {
  return stripStuff(html)
-}).then(function(html) {
+  }).then(function(html) {
  return splitStuff(html)
-}).then(function(html) {
+  }).then(function(html) {
  return analyze1(html)
-})</code></pre>
-</li>
-
-<li>
-<p>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.</p>
-
-<pre class="js"><code class="js">// using RSVP.js
-var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
-var fetching = fetch(url)
-var stripping = fetching.then(stripStuff)
-var splitting = stripping.then(splitStuff)
-var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
-// do other things, some of which will will want to use some of these promised chunks of data</code></pre>
-</li>
+  })</p>
+  </li>
+  <li>
+    <p>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.
+```js
+  // using RSVP.js
+  var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
+  var fetching = fetch(url)
+  var stripping = fetching.then(stripStuff)
+  var splitting = stripping.then(splitStuff)
+  var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
+  // do other things, some of which will will want to use some of these promised chunks of data</p>
+  </li>
 </ol>
 
-<p>Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available.</p>
+<p>Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. </p>
 
-<p>The key is to declaratively describe the relationships between various things that will all happen or exist sometime, without having to get bogged down in the details. This makes for vastly more readable, not to mention reasonable, asyncronous code.</p>
+<p>The key is to declaratively describe the relationships between various things that will all happen or exist sometime, without having to get bogged down 
+in the details. This makes for vastly more readable, not to mention reasonable, asyncronous code.</p>

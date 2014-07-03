@@ -1,1 +1,2 @@
 gems: ['jekyll-less']
+markdown: kramdown
