@@ -1,3 +1,4 @@
+@import "../rainbow.css";
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -5773,34 +5774,31 @@ button.close {
   }
 }
 body {
-  font-family: 'Merriweather', serif;
+  font-family: 'Oxygen', serif;
   background: #eeeee6;
   color: #333333;
-}
-#wrapper {
-  position: relative;
+  font-size: 18px;
 }
 ul {
   padding: 0;
 }
-li {
+ol {
+  padding-left: 20px;
+}
+ul li {
   list-style: none;
 }
 a {
   color: #299ecb;
 }
-.date {
-  text-align: center;
-  border-bottom: 1px dotted #333333;
-  padding-bottom: 5px;
-}
 .navbar-toggle {
   border: 1px solid #333333;
   position: fixed;
-  left: -4px;
+  right: -4px;
   top: 40%;
   display: block;
   background: #333333;
+  margin-right: 2px;
 }
 .navbar-toggle .icon-bar {
   float: left;
@@ -5812,7 +5810,8 @@ a {
   margin: 0 0 0 4px;
 }
 h1 {
-  font-size: 25px;
+  font-size: 24px;
+  letter-spacing: 2px;
   line-height: 46px;
   margin: 0;
   text-align: center;
@@ -5821,43 +5820,55 @@ h1 {
 h1 small {
   display: block;
 }
-#posts li {
-  padding: 20px 30px 20px 50px;
-}
-#posts li .label {
-  background: #333333;
-  padding: 4px 8px;
-}
-#posts li h3 {
-  line-height: 36px;
-  margin-top: 15px;
-}
-#posts li a:hover {
-  text-decoration: none;
-}
-#posts li i {
-  background: #299ecb;
-  color: #fff;
-  text-align: center;
-  line-height: 40px;
-  width: 40px;
-}
-#posts li i.fa-cutlery {
-  background: #299ecb;
-}
-#posts li i.fa-code {
-  background: #299ecb;
-}
 sidebar {
   position: fixed;
-  left: -250px;
-  width: 250px;
+  right: -300px;
+  width: 300px;
   top: 0;
   bottom: 0;
   padding: 20px 14px;
   background: #333333;
   box-sizing: border-box;
   min-height: 500px;
+}
+sidebar #history {
+  margin: 100px 0;
+}
+sidebar #history h4 {
+  color: #eeeee6;
+  text-align: center;
+  display: block;
+  margin-bottom: 20px;
+  border-bottom: 1px dotted #ffffff;
+}
+sidebar #history li {
+  padding: 0 10px 10px;
+  color: #ffffff;
+  text-align: right;
+}
+sidebar #history li .meta {
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  color: #eeeee6;
+  opacity: 1;
+  transition: .2s opacity;
+}
+sidebar #history li:hover .meta {
+  opacity: 1;
+}
+sidebar #history li h3 {
+  margin: 0;
+  font-size: 16px;
+}
+sidebar #history li a:hover {
+  text-decoration: none;
+}
+sidebar #history li .date {
+  opacity: 0;
+}
+sidebar #history li:hover .date {
+  opacity: 1;
 }
 sidebar #bio {
   left: 14px;
@@ -5867,59 +5878,39 @@ sidebar #bio {
   color: #ffffff;
   padding: 10px;
   border: 1px dotted #eeeee6;
+  color: #999;
+}
+sidebar #bio p {
+  float: right;
+  font-size: 20px;
+  line-height: 16px;
+}
+sidebar #bio p a {
+  display: inline-block;
+  padding: 0 3px;
 }
 sidebar #bio h2 {
   font-size: 18px;
   margin: 0 0 10px;
-}
-sidebar #filters {
-  margin: 80px 0 0;
-  color: #fff;
-}
-sidebar #filters h3 {
-  font-size: 25px;
-  text-align: center;
-  padding-bottom: 5px;
-  border-bottom: 1px dotted #999;
-}
-sidebar #filters #categories {
-  margin-bottom: 20px;
-}
-sidebar #filters .category {
-  text-align: center;
-  width: 100%;
-  background: #333333;
-  border: 1px solid #000000;
-  margin-bottom: 10px;
-}
-sidebar #filters .category.active:hover {
   color: #ffffff;
 }
-sidebar #filters .category:hover,
-sidebar #filters .category.active {
-  background: #299ecb;
-  border: 1px solid #ffffff;
+body.sidebar-in {
+  position: absolute;
+  right: 300px;
+  left: -300px;
 }
-sidebar #filters .tag {
-  text-align: center;
-  margin-right: 5px;
+body.sidebar-in .navbar-toggle {
+  right: 296px;
 }
-sidebar #filters .tag.active,
-sidebar #filters .tag:hover {
-  background: #299ecb;
-  color: #ffffff;
-  cursor: pointer;
-}
-#wrapper.sidebar-in {
-  left: 250px;
-  right: -250px;
-}
-#wrapper.sidebar-in .navbar-toggle {
-  left: 246px;
-}
-#wrapper.sidebar-in sidebar {
-  left: 0;
+body.sidebar-in sidebar {
+  right: 0;
   overflow-y: auto;
+}
+#post .content {
+  margin-right: 40px;
+}
+#post .content h2 {
+  margin-bottom: 30px;
 }
 @media (min-width: 768px) {
   .navbar-toggle {
@@ -5929,11 +5920,9 @@ sidebar #filters .tag:hover {
     padding-left: 30px;
   }
   sidebar {
-    left: 0;
-  }
-  #wrapper {
-    padding-left: 250px;
     right: 0;
-    position: static;
+  }
+  #post .content {
+    margin-right: 300px;
   }
 }

@@ -7,138 +7,109 @@
     <title>REPL Without A Cause</title>
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
     <link href="/assets/base.css" rel="stylesheet"></link>
 
   </head>
   <body>
 
-    <div rv-class-sidebar-in="vm:sidebar_in" id="wrapper">
+    <button type="button" class="navbar-toggle" id="toggle">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
 
-      <button type="button" class="navbar-toggle" rv-on-click="vm.toggleSidebar | preventDefault">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <sidebar>
-        <h1><small>A blog about</small> coding &amp; cooking.</h1>
-        <div id="filters">
-          <h3><small>Categories</small></h3>
-          <div id="categories">
-            
-              <div class="btn category active">
-                <i class="fa"></i>
-                cooking
-              </div>
-            
-              <div class="btn category active">
-                <i class="fa"></i>
-                coding
-              </div>
-            
-          </div>
-          <!--
-          <div id="tags">
-            <h3><small>Tags</small></h3>
-            
-              <div class="tag label label-default active">
-                <i class="fa fa-tag"></i>
-                Recipe
-              </div>
-            
-              <div class="tag label label-default active">
-                <i class="fa fa-tag"></i>
-                Javascript
-              </div>
-            
-              <div class="tag label label-default active">
-                <i class="fa fa-tag"></i>
-                UI
-              </div>
-            
-          </div>
-          -->
-        </div>
-        <div id="bio">
-          <h2>Brendan Barr</h2>
-          I am a web developer currently pursuing his dreams in sunny Santa Monica, CA.
-        </div>
-      </sidebar>
-
-      <section class="container-fluid" id="posts">
+    <sidebar>
+      <h1>REPLWithoutACause<small>Brendan Barr's code blog.</small></h1>
+      <div id="history">
         <ul>
-          <li rv-each-post="vm:posts">
-            <div class="date"> { post.date | postDate } </div>
+          
+          <li>
             <h3>
-              <a rv-href="post.href">
-                <i class="img-circle fa" rv-class-fa-cutlery="post.category | eql cooking" rv-class-fa-code="post.category | eql coding"></i>
-                { post.title } 
-              </a>
+              <a href="/coding/2014/07/02/promises.html">Promises for async composition</a>
             </h3>
-            <div class="meta"> { post.tags } </div>
+            <span class="meta">
+              07/02/14 - 
+              Javascript
+            </span>
           </li>
+          
         </ul>
-      </section>
+      </div>
+      <div id="bio">
+        <p>
+          <a href="http://github.com/bbarr" target="_blank"><i class="fa fa-github"></i></a>
+          <a href="http://brendanbarr.com" target="_blank"><i class="fa fa-home"></i></a>
+        </p>
+        <h2>Brendan Barr</h2>
+        is a web developer currently pursuing his dreams in sunny Santa Monica, CA.
+      </div>
+    </sidebar>
 
-    </div>
+    <section class="container" id="post">
+      <div class="content">
+        
+        <h2>Promises for async composition</h2>
+        <p>It has only been in the last few months that I have realized how woefully unimaginitive I have been in my use of promises. They are one of those rare abstractions that is simple enough to understand the first time you scan through the spec or a decent implementation. Their power also scales nicely along with your imagination in their use.</p>
 
-    <!--
+<p>I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:</p>
+
+<ol>
+<li>
+<p>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better</p>
+
+<pre class="js"><code class="js">$.ajax({
+   url: '/foo',
+ }).success(function() {
+   // do something
+ })</code></pre>
+</li>
+
+<li>
+<p>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!</p>
+
+<pre class="js"><code class="js">fetch(url).then(function(html) {
+ return stripStuff(html)
+}).then(function(html) {
+ return splitStuff(html)
+}).then(function(html) {
+ return analyze1(html)
+})</code></pre>
+</li>
+
+<li>
+<p>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.</p>
+
+<pre class="js"><code class="js">// using RSVP.js
+var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
+var fetching = fetch(url)
+var stripping = fetching.then(stripStuff)
+var splitting = stripping.then(splitStuff)
+var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
+// do other things, some of which will will want to use some of these promised chunks of data</code></pre>
+</li>
+</ol>
+
+<p>Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available.</p>
+
+<p>The key is to declaratively describe the relationships between various things that will all happen or exist sometime, without having to get bogged down in the details. This makes for vastly more readable, not to mention reasonable, asyncronous code.</p>
+        
+      </div>
+    </section>
+
+    <script src="highlight.pack.js"></script>
     <script>
-      var posts = [
-        
-          {
-            "title"    : "Rivets.JS Widgets",
-            "category" : "coding",
-            "tags"     : ["Javascript","UI", null],
-            "href"     : "/coding/2012/12/31/blah.html",
-            "date"     : {
-              "day"   : "31",
-              "month" : "December",
-              "year"  : "2012"
-            }
-          },
-        
-          {
-            "title"    : "Braised Pork Tostadas with Mango Salad",
-            "category" : "cooking",
-            "tags"     : ["Recipe", null],
-            "href"     : "/cooking/2011/12/31/foo.html",
-            "date"     : {
-              "day"   : "31",
-              "month" : "December",
-              "year"  : "2011"
-            }
-          },
-        
-        null
-      ]
-    </script>
-    -->
 
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/underscore/underscore.js"></script>
-    <script src="/bower_components/backbone/backbone.js"></script>
-    <script src="/bower_components/rivets/dist/rivets.js"></script>
-    <script src="/bower_components/woodpecker/dist/woodpecker.js"></script>
-    <script>
-
-      rivets.formatters.postDate = function(date) {
-        return date.month.substr(0, 3) + ' ' + date.day + ', ' + date.year
-      }
-
-      var VM = Backbone.Model.extend({
-        toggleSidebar: function() {
-          this.set('sidebar_in', !this.get('sidebar_in'))
-        }
-      })
-
-      rivets.bind(document.getElementById('wrapper'), {
-        vm: new VM({
-          posts: _.compact(posts)
+      (function() {
+        hljs.initHighlightingOnLoad();
+        var toggle = document.getElementById('toggle')
+        var body = document.body
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault()
+          body.classList.toggle('sidebar-in')
         })
-      })
+      })()
 
     </script>
 

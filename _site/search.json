@@ -1,26 +1,14 @@
 [
   
     {
-      "title"    : "Rivets.JS Widgets",
+      "title"    : "Promises for async composition",
       "category" : "coding",
-      "tags"     : ["Javascript","UI", null],
-      "href"     : "/coding/2012/12/31/blah.html",
+      "tags"     : ["Javascript", null],
+      "href"     : "/coding/2014/07/02/promises.html",
       "date"     : {
-        "day"   : "31",
-        "month" : "December",
-        "year"  : "2012"
-      }
-    },
-  
-    {
-      "title"    : "Braised Pork Tostadas with Mango Salad",
-      "category" : "cooking",
-      "tags"     : ["Recipe", null],
-      "href"     : "/cooking/2011/12/31/foo.html",
-      "date"     : {
-        "day"   : "31",
-        "month" : "December",
-        "year"  : "2011"
+        "day"   : "02",
+        "month" : "July",
+        "year"  : "2014"
       }
     },
   
