@@ -173,15 +173,7 @@ body.sidebar-in sidebar {
     margin-right: 300px;
   }
 }
-.CodeRay {
-  background: #333333;
-  color: #ffffff;
-  font-size: 16px;
-  padding: 1em 1em;
-  border-radius: 4px;
-  font-weight: normal;
-}
-.CodeRay pre {
+pre {
   margin: 0;
   display: block;
   padding: 0;
@@ -194,4 +186,10 @@ body.sidebar-in sidebar {
   background-color: inherit;
   border: none;
   border-radius: 0;
+  background: #333333;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 1em 1em;
+  border-radius: 4px;
+  font-weight: normal;
 }
