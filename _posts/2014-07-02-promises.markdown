@@ -1,0 +1,60 @@
+---
+layout: default
+title: Promises for async composition
+tags: javascript
+category: code
+---
+
+It has only been in the last few months that I have realized how woefully unimaginitive I have been in my use of promises. They are one of those rare abstractions that is simple enough to understand the first time you scan through the spec or a decent implementation. Their power also scales nicely along with your imagination in their use.
+
+I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:
+
+**Step 1:**
+
+~~~ javascript
+$.ajax({
+  url: '/foo',
+}).success(function() {
+  // do something
+})
+~~~
+
+Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better…
+
+***Step 2:***
+
+~~~ javascript
+// using RSVP.js
+fetch(url).then(function(html) {
+  return stripStuff(html)
+}).then(function(html) {
+  return splitStuff(html)
+}).then(function(htmls) {
+  return rsvp.all(htmls.map(analyze))
+})
+~~~
+
+Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!
+
+**Step 3:**
+
+~~~ javascript
+// using RSVP.js
+function mapWith(cb) { 
+  return function(arr) { return arr.map(cb) } 
+}
+var fetching = fetch(url)
+var stripping = fetching.then(stripStuff)
+var splitting = stripping.then(splitStuff)
+var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
+~~~
+
+Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility. Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available.
+
+**Step 4:**
+
+*Functional Reactive Programming.*
+
+This seems to be the next natural area of study, and while I have fooled around with Bacon.js a bit, I can’t claim to have synthesized any of it with my current async knowledge yet.
+
+I will probably be writing about diving into FRP in the near future, but in the meantime, I am really enjoying what I have with promises.
