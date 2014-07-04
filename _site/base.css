@@ -3276,7 +3276,7 @@ input[type="button"].btn-block {
   }
 }
 body {
-  font-family: 'Oxygen', serif;
+  font-family: 'Open Sans', serif;
   background: #eeeee6;
   color: #333333;
   font-size: 20px;
@@ -3429,11 +3429,13 @@ body.sidebar-in sidebar {
 #post .content h2 {
   margin: 0 0 30px;
   font-weight: bold;
+  font-size: 34px;
+  padding-right: 50px;
 }
 #post .content .CodeRay {
   margin: 20px 0 20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1400) {
   .navbar-toggle {
     display: none;
   }
