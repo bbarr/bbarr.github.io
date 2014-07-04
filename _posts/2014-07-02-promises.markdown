@@ -11,7 +11,7 @@ also scales nicely along with your imagination in their use.
 
 I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:
 
-1. Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That's, uh, sorta better...
+**Step 1:** 
 
 ~~~~ javascript
 $.ajax({
@@ -21,31 +21,42 @@ $.ajax({
 })
 ~~~~
 
-2. Whoa. I love all this chaaaaining. My code doesn't turn into a sideways pyramid now!
+Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That's, uh, sorta better...
+
+**Step 2:**
 
 ~~~ javascript
+// using RSVP.js
 fetch(url).then(function(html) {
   return stripStuff(html)
 }).then(function(html) {
   return splitStuff(html)
-}).then(function(html) {
-  return analyze1(html)
+}).then(function(htmls) {
+  return rsvp.all(htmls.map(analyze))
 })
 ~~~
 
-3. Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.
+Whoa. I love all this chaaaaining. My code doesn't turn into a sideways pyramid now!
+
+**Step 3:**
 
 ~~~ javascript
 // using RSVP.js
-var mapWith = function(cb) { return function(arr) { return arr.map(cb) } }
+function mapWith(cb) { 
+  return function(arr) { return arr.map(cb) } 
+}
 var fetching = fetch(url)
 var stripping = fetching.then(stripStuff)
 var splitting = stripping.then(splitStuff)
 var analyzing = rsvp.all(splitting.then(mapWith(analyze)))
-// do other things, some of which will will want to use some of these promised chunks of data
 ~~~
 
-Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. 
+Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility. Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. 
 
-The key is to declaratively describe the relationships between various things that will all happen or exist sometime, without having to get bogged down 
-in the details. This makes for vastly more readable, not to mention reasonable, asyncronous code.
+**Step 4:**
+
+*Functional Reactive Programming.*
+
+This seems to be the next natural area of study, and while I have fooled around with Bacon.js a bit, I can't claim to have synthesized any of it with my current async knowledge yet.
+
+I will probably be writing about diving into FRP in the near future, but in the meantime, I am really enjoying what I have with promises.

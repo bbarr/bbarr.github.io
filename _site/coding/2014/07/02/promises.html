@@ -4,9 +4,7 @@ also scales nicely along with your imagination in their use.</p>
 
 <p>I think there are a few steps along the path to promise enlightenment, and for me, they have looked like this:</p>
 
-<ol>
-  <li>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better…</li>
-</ol>
+<p><strong>Step 1:</strong> </p>
 
 <div><div class="CodeRay">
   <div class="code"><pre><span class="predefined">$</span>.ajax({
@@ -18,39 +16,46 @@ also scales nicely along with your imagination in their use.</p>
 </div>
 </div>
 
-<ol>
-  <li>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!</li>
-</ol>
+<p>Hey!, I can use these instead of those callbacks that I have learned/been told to despise! That’s, uh, sorta better…</p>
+
+<p><strong>Step 2:</strong></p>
 
 <div><div class="CodeRay">
-  <div class="code"><pre>fetch(url).then(<span class="keyword">function</span>(html) {
+  <div class="code"><pre><span class="comment">// using RSVP.js</span>
+fetch(url).then(<span class="keyword">function</span>(html) {
   <span class="keyword">return</span> stripStuff(html)
 }).then(<span class="keyword">function</span>(html) {
   <span class="keyword">return</span> splitStuff(html)
-}).then(<span class="keyword">function</span>(html) {
-  <span class="keyword">return</span> analyze1(html)
+}).then(<span class="keyword">function</span>(htmls) {
+  <span class="keyword">return</span> rsvp.all(htmls.map(analyze))
 })
 </pre></div>
 </div>
 </div>
 
-<ol>
-  <li>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility.</li>
-</ol>
+<p>Whoa. I love all this chaaaaining. My code doesn’t turn into a sideways pyramid now!</p>
+
+<p><strong>Step 3:</strong></p>
 
 <div><div class="CodeRay">
   <div class="code"><pre><span class="comment">// using RSVP.js</span>
-<span class="keyword">var</span> <span class="function">mapWith</span> = <span class="keyword">function</span>(cb) { <span class="keyword">return</span> <span class="keyword">function</span>(arr) { <span class="keyword">return</span> arr.map(cb) } }
+<span class="keyword">function</span> <span class="function">mapWith</span>(cb) { 
+  <span class="keyword">return</span> <span class="keyword">function</span>(arr) { <span class="keyword">return</span> arr.map(cb) } 
+}
 <span class="keyword">var</span> fetching = fetch(url)
 <span class="keyword">var</span> stripping = fetching.then(stripStuff)
 <span class="keyword">var</span> splitting = stripping.then(splitStuff)
 <span class="keyword">var</span> analyzing = rsvp.all(splitting.then(mapWith(analyze)))
-<span class="comment">// do other things, some of which will will want to use some of these promised chunks of data</span>
 </pre></div>
 </div>
 </div>
 
-<p>Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. </p>
+<p>Nevermind, I see. Asyncronous actions are now THINGS. I can actually return them from functions, and bind them to descriptive variables for better code readibility. Now, we have reached the point where we can start to construct entire apps using promises to obfuscate the timing of when data is available. </p>
 
-<p>The key is to declaratively describe the relationships between various things that will all happen or exist sometime, without having to get bogged down 
-in the details. This makes for vastly more readable, not to mention reasonable, asyncronous code.</p>
+<p><strong>Step 4:</strong></p>
+
+<p><em>Functional Reactive Programming.</em></p>
+
+<p>This seems to be the next natural area of study, and while I have fooled around with Bacon.js a bit, I can’t claim to have synthesized any of it with my current async knowledge yet.</p>
+
+<p>I will probably be writing about diving into FRP in the near future, but in the meantime, I am really enjoying what I have with promises.</p>
