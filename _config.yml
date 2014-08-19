@@ -1,1 +1,4 @@
 markdown: redcarpet
+fenced_code_blocks: true
+highlighter: pygments
+name: barrcode

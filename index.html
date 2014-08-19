@@ -1,65 +1,16 @@
 ---
-title: REPLWithoutACause.com
+layout: default
+title: Barr Code
 ---
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>REPL Without A Cause</title>
 
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href="/base.css" rel="stylesheet"></link>
-
-  </head>
-  <body>
-
-    <button type="button" class="navbar-toggle" id="toggle">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-
-    <sidebar>
-      <h1>REPLWithoutACause<small>A code blog.</small></h1>
-      <div id="history">
-        <ul>
-        </ul>
-      </div>
-      <div id="bio">
-        <p>
-          <a href="http://github.com/bbarr" target="_blank"><i class="fa fa-github"></i></a>
-          <a href="http://brendanbarr.com" target="_blank"><i class="fa fa-home"></i></a>
-        </p>
-        <h2>Brendan Barr</h2>
-        is a web developer currently pursuing his dreams in sunny Santa Monica, CA.
-      </div>
-    </sidebar>
-
-    <section class="container" id="post">
-      <div class="content">
-          {% for post in site.posts limit: 1 %}
-            <h2>{{ post.title }}</h2>
-            {{ post.content }}
-          {% endfor %}
-      </div>
-    </section>
-
-    <script>
-
-      (function() {
-        var toggle = document.getElementById('toggle')
-        var body = document.body
-        toggle.addEventListener('click', function(e) {
-          e.preventDefault()
-          body.classList.toggle('sidebar-in')
-        })
-      })()
-
-    </script>
-  </body>
-</html>
+<ul>
+  {% for post in site.posts limit: 5 %}
+  <li>
+    <small>{{ post.date | date_to_string }}</small>
+    <p>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <span class="meta">{{ post.tags | array_to_sentence_string }}</span>
+    </p>
+  </li>
+  {% endfor %}
+</ul>
