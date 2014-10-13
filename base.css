@@ -91,9 +91,11 @@ nav a {
 
 .highlight {
   background: #fff;
-  padding: 10px;
+  padding: 20px;
   margin: 10px 0;
   font-size: 14px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
 }
 
 #post {
