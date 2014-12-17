@@ -66,14 +66,7 @@ function render(state) {
 }
 
 // set initial state
-render({
-  campaign: {},
-  shared: {
-    page: 'home',
-    session: {},
-    flash: []
-  }
-})
+render({ foo: 'bar' })
 ```
 
 And our App component looks like this:
@@ -85,25 +78,20 @@ var React = require('react')
 
 var App = React.createClass({
 
+  updateFoo: function() {
+    this.props.$root.update({ foo: { $set: 'bat' } })
+  },
+
   render: function() {
-
-    var props = this.props
-
-    setTimeout(function() { 
-      props.$root.update({ foo: { $set: 'bar' } })
-    }, 1000)
-
-    return (
-      <div>
-        an app!
-        <h1>{ props.$root.deref().foo }</h1>
-      </div>
-    )
+    return <h1>{ props.$root.deref().foo }</h1>
   }
 })
 
 module.exports = App
 ```
 
-Ok, next up are actual components.
+There are a few issues with this implementation, but it gets us started with 
+using POJO's for our application state.
+
+Up next, a to-do app!
 
