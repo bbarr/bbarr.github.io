@@ -1,7 +1,9 @@
 ---
 layout: default
 title: PointerJS - Yet another JS implementation of React/Om-style data links
-tags: javascript FP
+tags: 
+- javascript 
+- FP
 category: code
 ---
 

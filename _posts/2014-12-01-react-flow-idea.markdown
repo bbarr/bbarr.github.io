@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Structuring non-trivial React applications
-tags: javascript
+tags: 
+- javascript
 category: code
 ---
 
