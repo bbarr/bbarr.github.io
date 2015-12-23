@@ -81,7 +81,7 @@ const todos = matcher(
     }
   ]),
 
-  { type: ADD_TODO, { text: "!!" } },
+  { type: ADD_TODO, text: "!!" },
   ({ text }, state) => ([
     ...state,
     Object.assign({}, last(state))
@@ -96,7 +96,7 @@ const todos = matcher(
     ...state.slice(index + 1)
   ]),
 
-  (_, state) => state
+  (_, state) => state || []
 )
 ```
 
