@@ -105,4 +105,3 @@ async abstraction.
 
 Check out [Medium](https://github.com/bbarr/medium) for the above CSP library.
 
---Brendan
