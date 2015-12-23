@@ -1,0 +1,96 @@
+---
+layout: default
+title: Redux with Pattern Matched Reducers
+tags: 
+- javascript
+- React
+- Redux
+- FP
+category: code
+---
+
+Let's start by looking at a reducer example given in the Redux documentation:
+
+```javascript
+function todos(state = [], action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [
+        ...state,
+        {
+          text: action.text,
+          completed: false
+        }
+      ]
+    case COMPLETE_TODO:
+      return [
+        ...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {
+          completed: true
+        }),
+        ...state.slice(action.index + 1)
+      ]
+    default:
+      return state
+  }
+}
+```
+
+Now, using pattern-matching:
+
+```javascript
+const todos = matcher(
+
+  { type: ADD_TODO },
+  ({ text }, state) => ([
+    ...state,
+    {
+      text: text,
+      completed: false
+    }
+  ]),
+
+  { type: COMPLETE_TODO },
+  ({ index }, state) => ([
+    ...state.slice(0, index),
+    Object.assign({}, state[index], {
+      completed: true
+    }),
+    ...state.slice(index + 1)
+  ]),
+
+  (_, state) => state
+)
+```
+
+The advantages should be clear: less "noise", and the ability to independantly destructure the given action.
+
+The above ```matcher``` function is made by combining a argument reverser with my [kismatch](http://github.com/bbarr/kismatch) library.
+
+```javascript
+import km from 'kismatch'
+let reverse = (fn) => (...args) => fn(...args.reverse())
+let matcher = (...pairs) => reverse(km(...pairs))
+```
+
+The reversing of arguments is necessary because reducers in Redux receive ```(state, action)```, and 
+```kismatch``` takes the pattern to match (which we want to be the action) first.
+
+```kismatch``` also supports strongest-match detection for multiple matches, and generic match values via an API based on React's PropTypes.
+
+For example:
+
+```javascript
+import km from 'kismatch'
+
+km(
+  { a: km.types.string },
+  ({ a }) => console.log(a),
+  { a: 'bar', b: km.types.number.isRequired },
+  ({ a }) => console.log('foo', a)
+)
+
+km({ a: 'hai there' }) // logs: 'hai there'
+km({ a: 'bar' }) // logs 'bar'
+km({ a: 'bar', b: 1 }) // logs 'foo', 'bar'
+```
