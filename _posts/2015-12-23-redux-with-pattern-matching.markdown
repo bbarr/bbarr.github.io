@@ -154,7 +154,7 @@ For example:
 ```javascript
 import km from 'kismatch'
 
-km(
+const fn = km(
 
   { a: km.types.string },
   ({ a }) => console.log(a),
@@ -163,9 +163,9 @@ km(
   ({ a }) => console.log('foo', a)
 )
 
-km({ a: 'hai there' }) // logs: 'hai there'
-km({ a: 'bar' }) // logs 'bar'
-km({ a: 'bar', b: 1 }) // logs 'foo', 'bar'
+fn({ a: 'hai there' }) // logs: 'hai there'
+fn({ a: 'bar' }) // logs 'bar'
+fn({ a: 'bar', b: 1 }) // logs 'foo', 'bar'
 ```
 
 With this ability to compose larger functions from more granular ones, and using pattern matching to handle the logic, we can get reducers that are more 
