@@ -36,7 +36,7 @@ keywords: HTML, CSS, Javascript, Web Development, Programming
   </div>
   -->
   <div class="articles">
-    {{ for post of search.pages("post", "date=desc", -3) }}
+    {{ for post of search.pages("post", "date=desc", 10) }}
       <div>
         <time>{{ post.date |> date('yyyy/MM/dd') }}</time>
         <div>

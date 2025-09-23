@@ -121,7 +121,11 @@ body > .container, body > .container-sm {
   gap: var(--spacing-xs);
 }
 
-.post-meta time {
+.post-meta > div span {
+  color: var(--color-secondary);
+}
+
+.post-meta > div time {
   color: var(--color-secondary);
   display: block;
 }
