@@ -13,32 +13,59 @@ keywords: HTML, CSS, Javascript, Web Development, Programming
   <div class="links">
     <h4>Links</h4>
     <nav>
-      <a href="https://github.com/bbarr" target="_blank">
-        Github
-        <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/brendan-barr" target="_blank">
-        LinkedIn
-        <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
+      <ul>
+        <li>
+          <a href="https://github.com/bbarr" target="_blank">
+            Github
+            <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/brendan-barr" target="_blank">
+            LinkedIn
+            <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor"><path d="M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </li>
+      </ul>
     </nav>
   </div>
-  <div class="articles-wrapper">
+  <div class="projects">
+    <h4>Side Projects for Fun</h4>
+    <ul>
+      <li>
+        <h5><a href="https://networth.8020money.app" target="_blank">Networth Tracker</a></h5>
+        <p>Completely private, offline-first web app for tracking your net worth alongside other helpful numbers like average loan to value (leverage) and weighted debt interest rate.</p>
+        <div class="tools">
+          <div>Preact.js</div>
+          <div>TailwindCSS</div>
+          <div>Chart.js</div>
+          <div>File System Access API</div>
+        </div>
+      </li>
+      <li>
+        <h5><a href="https://fincushion.com" target="_blank">Fincushion</a></h5>
+        <p>Automated cash flow trend monitoring with weekly email digest to help users stay on top of their spending.</p>
+        <div class="tools">
+          <div>Alpine.js</div>
+          <div>TailwindCSS</div>
+          <div>Express.js</div>
+          <div>SQLite</div>
+          <div>Plaid</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="articles">
     <h4>Latest Posts</h4>
-    <div class="articles">
+    <ul>
       {{ for post of search.pages("post", "date=desc", 3) }}
-        <div>
+        <li>
           <time>{{ post.date |> date('yyyy/MM/dd') }}</time>
           <div>
             <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-            <div class="tags">
-              {{ for tag of post.tags |> filter(t => t !== 'post') }}
-              <div>#{{ tag }}</div>
-              {{ /for }}
-            </div>
           </div>
-        </div>
+        </li>
       {{ /for }}
-    </div>
+    </ul>
   </div>
 </div>
