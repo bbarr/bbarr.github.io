@@ -47,7 +47,13 @@
         </div>
       </div>
       {{ /if }}
-      {{ content }}
+      {{ if tags.includes('post') }}
+      <article>
+      {{ /if }}
+        {{ content }}
+      {{ if tags.includes('post') }}
+      </article>
+      {{ /if }}
     </div>
     <div class="container container-sm">
       <footer>
