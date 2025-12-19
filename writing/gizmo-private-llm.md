@@ -1,7 +1,7 @@
 ---
 layout: layout.vto
 title: Kicking the tires on WebLLM
-date: 2025-12-10
+date: 2025-12-18
 tags:
   - AI 
   - post
@@ -20,7 +20,7 @@ to keep the model size to a minimum as even with caching it is a noticeable wait
 ### The naive first effort
 
 So I started by simply passing the CSV content along with the user's prompt (such as, "What was my biggest expense?") to the model for answering.
-Well that didn't work so well. Smaller models come with smaller context windows and even a small list of transactions with cause it to explode and throw a "context overflow" error.
+Well that didn't work so well. Smaller models come with smaller context windows and even a small list of transactions will cause it to explode and throw a "context overflow" error.
 *We will have to be cleverer than this.*
 
 ### Use the code, Luke
@@ -42,21 +42,21 @@ file system via the [Origin Private File System](https://developer.mozilla.org/e
 
 ### *Pretty* good now...
 
-So far so good. I am able to ask simple questions and get simple answers. The small LLM is still not the greatest at building complex queries. I found two improvement paths that both came with trade-offs:
+So far so good. I am able to ask simple questions and get simple answers. The small LLM is still not the greatest at building complex SQL queries. I found two improvement paths that both came with trade-offs:
 
-1. Use a high-powered hosted LLM to handle the SQL generating step. Since the prompt wouldn't include any of the banking data itself it would still be fairly private. The downsides being that you have to 
+1. **Use a high-powered hosted LLM to handle the SQL generating step.** Since the prompt wouldn't include any of the banking data itself it would still be fairly private. The downsides being that you have to 
 use the big, hosted, costly, not private models you were trying to avoid before, and there is still a chance that some private data could get through if the user included it in their prompt. One could try to 
 pre-process the prompt and replace sensistive information with random tokens, then plug in the real data when the SQL comes back, but that is obviously not a perfect fix.
-2. Send the small model some tools by baking them into the context window and asking it to request a tool call with arguments. This can be done in a loop, giving it each successive tool response until 
-it thinks it has enough data to answer the original prompt. I set this up so that the tools themselves in JS generated SQL prompts with variables for the model to fill in as needed as part of 
-the SQL generation step. It works pretty well and is even more consistent in getting the right SQL for a given prompt. There are still context window size issues to be fought with here, but it is mostly doable if you can convince the model
+2. **Send the small model some "tools" by baking them into the context window and asking it to request a tool call with arguments.** This can be done in a loop, giving it each successive tool response until 
+it thinks it has enough data to answer the original prompt. I set this up so that the tools generate SQL query templates with variables for the model to fill in as needed 
+It works pretty well and is even more consistent in getting the right SQL for a given prompt. There are still context window size issues to be fought with here, but it is mostly doable if you can convince the model
 to break issues down into smaller steps.
 
 ### Conclusion
 
-This experiment was eye-opening to me because I just had never considered the idea of asking a web page to run its own LLM before. WebLLM is really well done and has so far worked right out of the box for me.
+This experiment was eye-opening to me because I had never considered the idea of asking a web page to run its own LLM before. WebLLM is really well done and has so far worked right out of the box for me.
 I wouldn't say it isn't production ready, but you won't be solving just any old problem with an embedded LLM. The problem either needs to require its unique properties (privacy, offline-friendly, free as in pizza), or else 
 the complexity of the prompts need to be simple enough to work with a small model. If you want to load a larger model, of course, you can, but the user experience will be unconventional (think 10 minutes waiting for the model to load the first time, and a minute each subsequent load from cache).
 
 But this will probably only get better over time. I think WebLLM, and embedded open-source LLMs in general, already have a place in the right context, and I expect to see that context grow over time. Staying free of paid platforms is also a great way to 
-stay clear of any shinannigans pulled by the big co's when they decide to try and make a profit on all this, so, it would be wise to get used to being independent early and often.
+stay clear of any shenanigans pulled by the big co's when they decide to try and make a profit on all this, so, it would be wise to get used to being independent early and often.
