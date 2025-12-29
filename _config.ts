@@ -11,6 +11,8 @@ const site = lume({
 });
 site.add("/styles.css");
 site.add('images', 'images');
+site.add('statements', 'statements');
+site.add('tools', 'tools');
 site.add('favicon', '.');
 site.use(date());
 site.use(codeHighlight({
